@@ -11,7 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_04_Run_On_Browser {
+public class Run_On_Browser {
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	
