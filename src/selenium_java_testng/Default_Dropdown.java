@@ -70,11 +70,6 @@ public class Default_Dropdown {
 		Assert.assertEquals(driver.findElement(By.xpath("//input[@id='Company']")).getAttribute("value"), companyName);
 	}
 	
-	// @Test
-	public void Add_Address() {
-		
-	}
-	
 	
 	public int getRandomNumber() {
 		Random rand = new Random();
