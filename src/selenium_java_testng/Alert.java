@@ -1,5 +1,6 @@
 package selenium_java_testng;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -18,6 +19,10 @@ public class Alert {
 	org.openqa.selenium.Alert alert;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
+	String authenFirefox = projectPath + "\\autoIT\\authen_firefox.exe";
+	String authenChrome = projectPath + "\\autoIT\\authen_chrome.exe";
+	String username = "admin";
+	String password = "admin";
 
 	@BeforeClass
 	public void beforeClass() {
@@ -94,13 +99,25 @@ public class Alert {
 	}
 	
 	@Test
-	public void Authentication_Alert() {
+	public void Authentication_Alert_I() {
 		driver.get("http://the-internet.herokuapp.com/");
 		
 		driver.get(passUserAndPassToUrl("http://the-internet.herokuapp.com/basic_auth", "admin", "admin"));
 		
 		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(), 'Congratulations! You must have the proper credentials.')]")).isDisplayed());
 		
+	}
+	
+	public void Authentication_Alert_II() throws IOException {
+		if (driver.toString().contains("firefox")) {
+			Runtime.getRuntime().exec(new String[] { authenFirefox, username, password }); 
+		}else if (driver.toString().contains("chrome")) {
+			Runtime.getRuntime().exec(new String[] { authenChrome, username, password }); 
+		}
+		driver.get("http://the-internet.herokuapp.com/basic_auth");
+		sleepInSceond(2);
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//p[contains(text(), 'Congratulations! You must have the proper credentials.')]")).isDisplayed());
 	}
 	
 	public String passUserAndPassToUrl(String url, String username, String password) {
